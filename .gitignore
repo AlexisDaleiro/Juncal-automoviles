@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+next-env.d.ts
+*.tsbuildinfo
+.env*
+.unlighthouse
+.impeccable/review
+.impeccable/build
+.DS_Store

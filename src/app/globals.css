@@ -1,0 +1,391 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens (Tailwind v4: CSS-first). Source of truth, documented in DESIGN.md.
+ * `static` keeps every token emitted so plain CSS below can reference them.
+ */
+@theme static {
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Ink: base and dark surfaces */
+  --color-ink: #0a0a0a;
+  --color-ink-soft: #151513;
+  --color-ink-raised: #1d1b18;
+  --color-ink-line: #2c2924;
+  /* Text on ink */
+  --color-cream: #f4f2ec;
+  --color-cream-2: #b9b5aa;
+  --color-cream-3: #8e8a80;
+  /* Paper: light surfaces */
+  --color-paper: #fafaf8;
+  --color-paper-2: #f2f1ec;
+  --color-line: #e6e4dd;
+  --color-line-strong: #cfccc2;
+  --color-text-2: #46433d;
+  --color-text-3: #6e6a61;
+  /* Accent: bronze. A scalpel, not a brush. */
+  --color-bronze-100: #f3e6d8;
+  --color-bronze-500: #b87333;
+  --color-bronze-600: #9a5c26;
+  --color-bronze-700: #7d4a1e;
+  /* Semantic */
+  --color-ok: #1f7a4d;
+  --color-ok-soft: #e3f1e9;
+  --color-ok-bright: #46c37b;
+  --color-alert: #b3372d;
+  --color-alert-soft: #f8e4e1;
+  --color-wa: #137a3f;
+  --color-wa-hover: #0f6a36;
+
+  /* Type scale: ratio 1.25 from 16px, fluid via clamp() */
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.375rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.625rem;
+  --text-lg: clamp(1.0625rem, 1.02rem + 0.2vw, 1.25rem);
+  --text-lg--line-height: 1.45;
+  --text-xl: clamp(1.25rem, 1.15rem + 0.45vw, 1.5625rem);
+  --text-xl--line-height: 1.3;
+  --text-2xl: clamp(1.5625rem, 1.35rem + 0.9vw, 1.953rem);
+  --text-2xl--line-height: 1.2;
+  --text-3xl: clamp(1.953rem, 1.55rem + 1.7vw, 2.441rem);
+  --text-3xl--line-height: 1.12;
+  --text-4xl: clamp(2.441rem, 1.8rem + 2.7vw, 3.052rem);
+  --text-4xl--line-height: 1.06;
+  --text-5xl: clamp(2.5rem, 1.7rem + 3.6vw, 4rem);
+  --text-5xl--line-height: 1.02;
+
+  --radius-card: 1rem;
+  --radius-ctl: 0.5rem;
+  --radius-sheet: 1.5rem;
+
+  /* Two layers each: ambient + directional */
+  --shadow-card: 0 1px 2px rgb(10 10 10 / 0.05), 0 6px 16px -6px rgb(10 10 10 / 0.1);
+  --shadow-card-hover: 0 2px 4px rgb(10 10 10 / 0.05), 0 18px 36px -12px rgb(10 10 10 / 0.22);
+  --shadow-pop: 0 2px 6px rgb(10 10 10 / 0.08), 0 16px 40px -10px rgb(10 10 10 / 0.28);
+  --shadow-fab: 0 2px 6px rgb(10 10 10 / 0.18), 0 10px 24px -6px rgb(10 10 10 / 0.35);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@layer base {
+  html {
+    --header-h: 60px;
+    --focus: var(--color-bronze-600);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 72px);
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-strong) var(--color-paper);
+  }
+  @media (min-width: 1024px) {
+    html {
+      --header-h: 76px;
+    }
+  }
+  html[data-compact] {
+    --header-h: 52px;
+  }
+  @media (min-width: 1024px) {
+    html[data-compact] {
+      --header-h: 60px;
+    }
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-bronze-500) 38%, white);
+    color: var(--color-ink);
+  }
+  input,
+  textarea {
+    caret-color: var(--color-bronze-600);
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+  button,
+  [role="button"],
+  summary {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+@utility display {
+  font-variation-settings: "wdth" 112;
+  letter-spacing: -0.022em;
+  font-weight: 650;
+}
+
+@utility num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility on-dark {
+  --focus: var(--color-bronze-500);
+}
+
+/* ---- Skeleton: shimmer runs once, left to right ---- */
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-paper-2);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.7), transparent);
+  animation: shimmer 1.3s var(--ease-out-expo) 1 both;
+}
+
+/* ---- Favorite heart: scale 1 -> 1.3 -> 1 ---- */
+@keyframes heart-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.heart-pop {
+  animation: heart-pop 420ms var(--ease-spring);
+}
+
+/* ---- WhatsApp FAB: three soft pulses, then rest ---- */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  80%,
+  100% {
+    transform: scale(1.65);
+    opacity: 0;
+  }
+}
+.fab-pulse::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--color-wa);
+  pointer-events: none;
+  animation: pulse-ring 2.4s var(--ease-out-expo) 1.4s 3 both;
+}
+
+/* ---- Overlay, sheets, popovers (Radix data-state driven) ---- */
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes overlay-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes sheet-down {
+  to {
+    transform: translateY(100%);
+  }
+}
+@keyframes sheet-in {
+  from {
+    transform: translateX(100%);
+  }
+}
+@keyframes sheet-out {
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes center-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 12px)) scale(0.98);
+  }
+}
+@keyframes center-out {
+  to {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 8px)) scale(0.98);
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+}
+@keyframes pop-out {
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgb(10 10 10 / 0.55);
+}
+.sheet-overlay[data-state="open"] {
+  animation: overlay-in 240ms ease-out both;
+}
+.sheet-overlay[data-state="closed"] {
+  animation: overlay-out 200ms ease-in both;
+}
+
+.sheet-content {
+  position: fixed;
+  z-index: 61;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 90dvh;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+  box-shadow: var(--shadow-pop);
+  outline: none;
+}
+.sheet-content[data-state="open"] {
+  animation: sheet-up 420ms var(--ease-out-expo) both;
+}
+.sheet-content[data-state="closed"] {
+  animation: sheet-down 260ms ease-in both;
+}
+@media (min-width: 768px) {
+  .sheet-content[data-placement="side"] {
+    left: auto;
+    top: 0;
+    width: min(440px, 100vw);
+    max-height: none;
+    border-radius: 0;
+  }
+  .sheet-content[data-placement="side"][data-state="open"] {
+    animation-name: sheet-in;
+  }
+  .sheet-content[data-placement="side"][data-state="closed"] {
+    animation-name: sheet-out;
+  }
+  .sheet-content[data-placement="center"] {
+    left: 50%;
+    right: auto;
+    top: 50%;
+    bottom: auto;
+    width: min(560px, calc(100vw - 32px));
+    max-height: min(760px, 92dvh);
+    transform: translate(-50%, -50%);
+    border-radius: var(--radius-sheet);
+  }
+  .sheet-content[data-placement="center"][data-state="open"] {
+    animation: center-in 320ms var(--ease-out-expo) both;
+  }
+  .sheet-content[data-placement="center"][data-state="closed"] {
+    animation: center-out 200ms ease-in both;
+  }
+}
+
+.pop {
+  z-index: 55;
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-pop);
+  outline: none;
+}
+.pop[data-state="open"] {
+  animation: pop-in 180ms var(--ease-out-expo) both;
+}
+.pop[data-state="closed"] {
+  animation: pop-out 120ms ease-in both;
+}
+
+.fade-up {
+  animation: fade-up 320ms var(--ease-out-expo) both;
+}
+
+/* Card: containment keeps repaints local while the grid animates around it */
+.vehicle-card {
+  contain: layout style paint;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .fab-pulse::before,
+  .skeleton::after {
+    display: none;
+  }
+}
