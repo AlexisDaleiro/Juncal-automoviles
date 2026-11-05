@@ -54,7 +54,7 @@ export function Header() {
     >
       <Container className="flex h-full items-center justify-between gap-4">
         <Link
-          href="/vehiculos"
+          href="/"
           className="flex origin-left items-center gap-2.5 rounded-ctl transition-transform duration-200 ease-out [html[data-compact]_&]:scale-90"
         >
           <LogoMark size={32} />
@@ -65,14 +65,12 @@ export function Header() {
         </Link>
 
         <nav aria-label="Principal" className="hidden items-center gap-1 md:flex">
-          <a
-            className={linkClass}
-            href={whatsappLink("Hola Juncal, quiero vender mi auto. ¿Cómo es el proceso?")}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <Link className={linkClass} href="/vehiculos">
+            Vehículos
+          </Link>
+          <Link className={linkClass} href="/#vender">
             Vender mi auto
-          </a>
+          </Link>
           <button type="button" className={linkClass} onClick={() => openCalculator()}>
             Financiación
           </button>

@@ -367,6 +367,30 @@
   animation: fade-up 320ms var(--ease-out-expo) both;
 }
 
+/* ---- Home: corner schematic draws once, then the pin drops ---- */
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes pin-drop {
+  from {
+    transform: translateY(-28px);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+}
+.draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 900ms var(--ease-out-expo) both;
+}
+.pin-drop {
+  animation: pin-drop 520ms var(--ease-spring) 700ms both;
+}
+
 /* Card: containment keeps repaints local while the grid animates around it */
 .vehicle-card {
   contain: layout style paint;

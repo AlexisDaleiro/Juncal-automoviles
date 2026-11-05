@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, CarFront, Calculator, Clock, FileCheck, HandCoins, MapPin } from "lucide-react";
+import { ArrowUpRight, CarFront, Calculator, Clock, FileCheck, HandCoins, Home, MapPin } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import { Sheet } from "@/components/ui/sheet";
@@ -35,21 +35,18 @@ export function MobileNav({ open, onOpenChange }: { open: boolean; onOpenChange:
       }
     >
       <nav aria-label="Menú móvil">
+        <Link href="/" className={row} onClick={close}>
+          <Home size={22} className="text-bronze-600" aria-hidden />
+          Inicio
+        </Link>
         <Link href="/vehiculos" className={row} onClick={close}>
           <CarFront size={22} className="text-bronze-600" aria-hidden />
           Vehículos
         </Link>
-        <a
-          className={row}
-          href={whatsappLink("Hola Juncal, quiero vender mi auto. ¿Cómo es el proceso?")}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={close}
-        >
+        <Link href="/#vender" className={row} onClick={close}>
           <HandCoins size={22} className="text-bronze-600" aria-hidden />
           Vender mi auto
-          <ArrowUpRight size={18} className="ml-auto text-text-3" aria-hidden />
-        </a>
+        </Link>
         <button
           type="button"
           className={row}
