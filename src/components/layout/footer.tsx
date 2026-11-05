@@ -64,14 +64,19 @@ export function Footer() {
           <h2 className={heading}>Atajos</h2>
           <ul className={col}>
             <li>
+              <Link className={link} href="/">
+                Inicio
+              </Link>
+            </li>
+            <li>
               <Link className={link} href="/vehiculos">
                 Todos los vehículos
               </Link>
             </li>
             <li>
-              <a className={link} href={whatsappLink("Hola Juncal, quiero vender mi auto.")} target="_blank" rel="noopener noreferrer">
+              <Link className={link} href="/#vender">
                 Vender mi auto
-              </a>
+              </Link>
             </li>
             <li>
               <a className={link} href={whatsappLink("Hola Juncal, quiero consultar por financiación.")} target="_blank" rel="noopener noreferrer">

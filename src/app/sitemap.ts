@@ -4,7 +4,8 @@ import { SITE } from "@/lib/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    { url: `${SITE.url}/vehiculos`, changeFrequency: "daily", priority: 1 },
+    { url: SITE.url, changeFrequency: "weekly", priority: 1 },
+    { url: `${SITE.url}/vehiculos`, changeFrequency: "daily", priority: 0.9 },
     ...vehicles.map((v) => ({
       url: `${SITE.url}/vehiculos/${v.slug}`,
       lastModified: v.publishedAt,

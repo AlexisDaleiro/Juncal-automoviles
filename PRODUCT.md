@@ -43,6 +43,8 @@ Name: Juncal Automóviles. Voice: Rioplatense Spanish, voseo ("Encontrá", "Calc
 
 Contact data and a handful of real listings from the current site. No testimonials, review scores, or customer counts are on hand; the trust strip states only what the brief asserts (mechanical review, warranty, financing, gestoría) and marks the customer-count figure as a placeholder to confirm.
 
+Confirmed by the user on 2026-11-04 while briefing the home page: there are no photos of the local, no customer reviews and no customer figures yet. The home does not invent them; a facade photo and real reviews are open slots. Home priorities, in the user's words: visitar el local, vender mi auto, financiación.
+
 ## Product Principles
 
 1. Trust before conversion: show price, history and who stands behind the car before asking for contact.

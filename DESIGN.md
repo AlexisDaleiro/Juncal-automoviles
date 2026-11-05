@@ -183,11 +183,30 @@ Principio: toda animación comunica estado, jerarquía o feedback. Si no, se eli
 - Hero: búsqueda protagonista, sin carrusel, ≤ 40 vh.
 - Interstitial de confianza: `col-span-full` tras la card 12. Primer resultado destacado: `sm:col-span-2`.
 
-## 6. URL como estado
+## 6. Home `/`
+
+Estructura "El local como lugar": la home es un lugar al que se puede ir hoy, no un segundo catálogo. Prioridades: visitar, vender, financiar. Sin fotos del local, reseñas ni cifras (el cliente confirmó que no existen todavía): nada se inventa y los huecos quedan abiertos.
+
+| Sección | Archivo | Qué prueba |
+|---|---|---|
+| Hero "Pasá a verlos." | `home/home-hero.tsx` | Estado en vivo (abierto/cerrado, hora de Montevideo), dirección, Cómo llegar, WhatsApp |
+| Esquema de la esquina | `home/street-map.tsx` | Diagrama dibujado a mano (Constituyente × Emilio Frugoni, N.º 1880), rotulado "sin escala". Las líneas se trazan una vez y el pin cae |
+| Horarios | `home/open-status.tsx` | Tres grupos reales; el de hoy lleva regla bronce y "Hoy" |
+| En el salón ahora | `home/stock-strip.tsx` | Tres destacados con la misma `VehicleCard` y camino al catálogo |
+| Elegí la cuota | `home/finance-section.tsx` | Inverso de la cuota de la card: cuota mensual → precio máximo → N autos que entran. Comparte anticipo y plazo con todo el sitio |
+| ¿Querés vender tu auto? | `home/sell-section.tsx` | Formulario sin backend que arma el mensaje de WhatsApp. No guarda datos |
+| Todo en la misma puerta | `home/services.tsx` | Lista con reglas (no tarjetas): revisión y garantía, gestoría propia, Seguros Ezzatti |
+
+- Movimiento autorizado en la home: el trazado del esquema (900 ms) y la caída del pin (520 ms, resorte, 700 ms de demora). El resto es estático salvo el contador de cuota.
+- Horario: `lib/hours.ts` calcula el estado en `America/Montevideo` sin importar la zona del visitante. El HTML del servidor muestra "Horario de atención" y el estado vivo llega tras montar, sin desajuste de hidratación.
+- Ritmo de fondos: tinta (hero) → paper (salón) → paper-2 (financiación) → paper (vender) → paper-2 (servicios) → tinta (footer).
+- Navegación: el logo vuelve a `/`; "Vender mi auto" apunta a `/#vender`; el catálogo pasó a "Vehículos".
+
+## 7. URL como estado
 
 `/vehiculos?q=&tipo=suv,pickup&marca=Toyota&comb=electrico&trans=automatica&estado=0km&pmin=&pmax=&amin=&amax=&kmin=&kmax=&guardados=1&orden=precio-asc&vista=lista`. Los valores por defecto no aparecen. La página se renderiza por request para que el HTML ya traiga las cards filtradas.
 
-## 7. Datos y supuestos
+## 8. Datos y supuestos
 
 - Contacto, dirección y horarios: leídos de juncalautomoviles.com. Redes: handles supuestos, confirmar.
 - Inventario de demostración; precios plausibles del mercado. Modelos chinos (MCROWN, BAW, JMC) a validar con el cliente.
